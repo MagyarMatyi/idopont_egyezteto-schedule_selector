@@ -1,1 +1,99 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Időpont egyeztetés</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Időpont egyeztetés</h1>
+
+    <p>
+        Jelöld be azokat a napokat, amikor ráérsz!
+    </p>
+
+
+    <label for="name">
+        Neved:
+    </label>
+
+    <input 
+        id="name" 
+        type="text" 
+        placeholder="Írd be a neved">
+
+
+    <h2>Elérhető napok</h2>
+
+
+    <div class="days">
+
+        <label class="day">
+            <input 
+                type="checkbox" 
+                class="day-checkbox"
+                value="2026-08-10">
+            2026. augusztus 10. (hétfő)
+        </label>
+
+
+        <label class="day">
+            <input 
+                type="checkbox"
+                class="day-checkbox"
+                value="2026-08-11">
+            2026. augusztus 11. (kedd)
+        </label>
+
+
+        <label class="day">
+            <input 
+                type="checkbox"
+                class="day-checkbox"
+                value="2026-08-12">
+            2026. augusztus 12. (szerda)
+        </label>
+
+
+        <label class="day">
+            <input 
+                type="checkbox"
+                class="day-checkbox"
+                value="2026-08-13">
+            2026. augusztus 13. (csütörtök)
+        </label>
+
+
+        <label class="day">
+            <input 
+                type="checkbox"
+                class="day-checkbox"
+                value="2026-08-14">
+            2026. augusztus 14. (péntek)
+        </label>
+
+    </div>
+
+
+    <button id="save">
+        Mentés
+    </button>
+
+
+    <p id="message"></p>
+
+
+</div>
+
+
+<script type="module" src="script.js"></script>
+
+</body>
+</html>
