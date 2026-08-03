@@ -35,8 +35,9 @@ const firebaseConfig = {
 
 
 
-const app = initializeApp(firebaseConfig);
+// Firebase indítása
 
+const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
 
@@ -44,7 +45,10 @@ const db = getFirestore(app);
 
 
 
-// Mentés
+// =========================
+// ADATMENTÉS
+// =========================
+
 
 document.getElementById("save")
 .addEventListener("click", async () => {
@@ -121,7 +125,6 @@ document.getElementById("save")
         "✅ Sikeresen mentve!";
 
 
-
         document.getElementById("name")
         .value = "";
 
@@ -136,18 +139,18 @@ document.getElementById("save")
         });
 
 
-
     }
+
 
     catch(error){
 
 
-        console.error(error);
+        console.error("Mentési hiba:", error);
 
 
         document.getElementById("message")
         .innerHTML =
-        "❌ Hiba történt!";
+        "❌ Hiba történt mentés közben.";
 
 
     }
@@ -161,7 +164,10 @@ document.getElementById("save")
 
 
 
-// Eredmények megjelenítése
+// =========================
+// ÖSSZESÍTÉS MEGJELENÍTÉSE
+// =========================
+
 
 document.getElementById("showResults")
 .addEventListener("click", async ()=>{
@@ -184,15 +190,74 @@ document.getElementById("showResults")
 
 
 
+    let napok = {};
+
+
+
+    snapshot.forEach(doc=>{
+
+
+        const adat = doc.data();
+
+
+
+        adat.napok.forEach(nap=>{
+
+
+            if(!napok[nap]){
+
+                napok[nap] = [];
+
+            }
+
+
+
+            napok[nap].push(adat.nev);
+
+
+        });
+
+
+    });
+
+
+
+
+    // legtöbb ember szerint rendezés
+
+    const rendezett =
+    Object.entries(napok)
+    .sort((a,b)=>{
+
+        return b[1].length - a[1].length;
+
+    });
+
+
+
+
+
     let html = `
+
+
+    <h3>
+        Összesítés
+    </h3>
+
 
     <table>
 
     <tr>
 
-        <th>Név</th>
+        <th>
+            Időpont
+        </th>
 
-        <th>Elérhető napok</th>
+
+        <th>
+            Elérhető emberek
+        </th>
+
 
     </tr>
 
@@ -200,29 +265,35 @@ document.getElementById("showResults")
 
 
 
-    snapshot.forEach(doc=>{
-
-
-        const adat =
-        doc.data();
-
+    rendezett.forEach(([nap, nevek])=>{
 
 
         html += `
 
+
         <tr>
 
+
             <td>
-                ${adat.nev}
+                ${nap}
             </td>
 
 
             <td>
-                ${adat.napok.join("<br>")}
+
+                <b>
+                    ${nevek.length} fő
+                </b>
+
+                <br>
+
+                (${nevek.join(", ")})
+
             </td>
 
 
         </tr>
+
 
         `;
 
